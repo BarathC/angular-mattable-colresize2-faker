@@ -1,0 +1,61 @@
+<div class="mat-elevation-z8" class="tableroot">
+	<div class="action-bar">
+		<button va-mat-table-column-sorter
+         [columns]="displayedColumns"
+         (columnsChange)="columnsReordered($event)"
+         [columnNames]="displayedColumnsNames"
+         [saveName]="'example-table'">
+         <mat-icon>view_column</mat-icon>
+         Columns
+      </button>
+	</div>
+	<div class="tablelist">
+		<mat-table [dataSource]="dataSource" #matTable cdkDropListGroup cdkDropList dkDropListLockAxis="x"
+			cdkDropListOrientation="horizontal" (scroll)='onTableScroll($event)'
+			(cdkDropListDropped)="columnMenuDropped($event)">
+
+			<ng-container *ngFor="let column of columns; let i = index" [matColumnDef]="column.field">
+				<mat-header-cell *matHeaderCellDef #headercell cdkDrag cdkDragBoundary=".header"
+					[cdkDragData]="{columnIndex: i, columnTitle: column.field}"
+					[cdkDragDisabled]="column.pinned || pressed">
+					<div class="header-root">
+						<div class='header-text'>{{column.field}} </div>
+						<mat-icon class="pin" matTooltip="{{column.pinned == false? 'Pin left': 'Unpin'}}"
+							(click)="fnPinColumn(column)">{{column.pinned == false? 'push_pin': 'clear'}}</mat-icon>
+						<mat-divider appTableResize [index]="i" [column]="headercell" [table]="matTable"
+							[resizeColumn]=true *ngIf="i < columns.length - 1" class="divider" [vertical]="true"
+							(mousedown)="onResizeColumn($event,headercell, i)"></mat-divider>
+					</div>
+					<!-- <mat-card class="va-mat-table-drag-preview" *cdkDragPreview>
+					<div>
+						{{ column.field }}
+					</div>
+				</mat-card> -->
+				</mat-header-cell>
+
+				<mat-cell *matCellDef="let row" >
+					<ng-container [ngSwitch]="column.field">
+						<div class="cellpadding" *ngSwitchCase="'Name'"> {{row.name}} </div>
+						<div class="cellpadding" *ngSwitchCase="'Email'"> {{row.email}} </div>
+						<div class="cellpadding" *ngSwitchCase="'Phone'"> {{row.phone}} </div>
+						<div class="cellpadding" *ngSwitchCase="'Website'"> {{row.website}} </div>
+					</ng-container>
+				</mat-cell>
+			</ng-container>
+			<mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class='header'></mat-header-row>
+			<mat-row  (contextmenu)="onContextMenu($event, row)" #demmatrow *matRowDef="let row; columns: displayedColumns;"
+				[matRowKeyboardSelection]="this.selection" [rowModel]="row" [matTable]="matTable" [row]="demmatrow"
+				[ngClass]="{selected: selection.isSelected(row)}"></mat-row>
+
+		</mat-table>
+		<div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
+			[style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
+		</div>
+		<mat-menu #contextMenu="matMenu" #contextMenu2="matMenu">
+			<ng-template matMenuContent let-item="item">
+				<button mat-menu-item (click)="onContextMenuAction1(item)">Action 1</button>
+				<button mat-menu-item (click)="onContextMenuAction2(item)">Action 2</button>
+			</ng-template>
+		</mat-menu>
+	</div>
+</div>

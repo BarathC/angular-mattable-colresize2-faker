@@ -1,0 +1,165 @@
+.tableroot {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  grid-template-rows: min-content minmax(0,1fr);
+}
+.tablelist {
+   min-width: 31.25rem;
+   padding: 0.625rem;
+}
+
+.mat-table {
+   height: 100%;
+  width: 100%;
+  overflow: auto;
+  .header-root {
+    width: 100%;
+    display: grid;
+  }
+  
+  &::ng-deep .header-root {
+    display: grid;
+    width: 100%;
+    padding: 10px;
+    grid-template-columns: 1fr min-content min-content;
+    align-items: center;
+    .header-text {
+      font-weight: bold;
+      font-size: 16px;
+      // text-align: center;
+      color: black;
+    }
+
+    .pin{
+      display: none;
+      width: 24px;
+      cursor: pointer;
+    }
+
+    .divider {
+      height: 24px;
+      width: 2px;
+      cursor: col-resize;
+      border-color: rgba(0, 0, 0, 0.4);
+    }
+  }
+    
+  mat-cell:first-child {
+    padding-left: 0px;
+  }
+
+  mat-cell:last-child {
+    padding-right: 0px;
+  }
+
+  mat-header-cell:first-child {
+    padding-left: 0px;
+  }
+
+  mat-header-cell:last-child {
+    padding-right: 0px;
+  }
+
+  mat-header-cell:hover {
+    & .pin {
+      display: block;
+    }
+  }
+
+  .mat-row {
+    border: none;
+    min-height: min-content;
+    // border-color: rgba(0, 0, 0, 0.1);
+  }
+
+  // .mat-row:nth-child(odd) {
+  //   background-color:  #f8f8f8;
+  // }
+
+  .mat-header-row {
+    min-height: min-content;
+    background-color: #f8f8f8;
+    border: none;
+    height: 32px;
+    // border: 1px solid rgba(0, 0, 0, 0.12);
+    // border-bottom-color: rgba(0, 0, 0, 0.12);
+  }
+}
+
+mat-cell,
+mat-footer-cell,
+mat-header-cell {
+  width: 200px;
+  flex: none;
+  justify-content: center;
+}
+
+.action-bar {
+    background: white;
+    padding: 16px 8px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    text-align: left;
+}
+
+.action-bar:empty {
+  display: none;
+}
+
+.cellpadding {
+     height: 100%;
+    padding: 10px;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+.va-mat-table-drag-preview {
+  padding: 12px 16px 12px 12px !important;
+  cursor: grabbing !important;
+  margin-top: -4px;
+  margin-left: -4px;
+  font-size: 14px;
+}
+
+.cdk-drag-preview {
+  // width: 100px !important;
+  border-radius: 4px;
+  height: 32px;
+  padding: 0;
+  background-color:  #f8f8f8;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+
+    align-items: center;
+    .header-text {
+      font-weight: bold;
+      font-size: 16px;
+      // text-align: center;
+      color: black;
+    }
+
+    .pin{
+      display: none;
+    }
+
+    .divider {
+      display: none;
+    }
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+table tr.selected, mat-table mat-row.selected {
+  background-color: rgb(230, 255, 241) !important;
+}
+mat-row:focus {
+  outline: none !important;
+  -webkit-text-fill-color: inherit;
+  
+}
+
+
